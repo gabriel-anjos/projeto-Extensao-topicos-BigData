@@ -9,3 +9,13 @@ dados_vendas = {
 
 df = pd.DataFrame(dados_vendas)
 print(df)
+
+df['Data'] = pd.to_datetime(df['Data'])
+df['Data'] = df['Quantidade'] * df['Preco Unitario']
+print(df)
+
+vendas_por_produto = df.groupby('Produto').agg(
+    Quantidade_Total = ('Quantidade','sum'),
+    Receita_Total = ('Receita','sum')
+).reset_index()
+print(vendas_por_produto)
